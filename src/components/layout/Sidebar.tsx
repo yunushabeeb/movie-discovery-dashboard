@@ -1,83 +1,112 @@
 import { NavLink } from 'react-router-dom';
 import {
-  Calendar,
+  ChevronLeft,
+  ChevronRight,
   Clapperboard,
-  Home,
   Sparkles,
-  Star,
-  TrendingUp,
 } from 'lucide-react';
-
-const navItems = [
-  { to: '/', label: 'Home', icon: Home, end: true },
-  { to: '/popular', label: 'Popular', icon: TrendingUp },
-  { to: '/top-rated', label: 'Top Rated', icon: Star },
-  { to: '/upcoming', label: 'Upcoming', icon: Calendar },
-] as const;
+import { useLayout } from '@/hooks/useLayout';
+import { activeNavClass, inactiveNavClass, navItems } from './navConfig';
 
 export function Sidebar() {
+  const { sidebarCollapsed, toggleSidebar } = useLayout();
+
   return (
-    <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-surface lg:flex">
-      <div className="flex items-center gap-2.5 border-b border-border px-6 py-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-600">
-          <Clapperboard className="h-5 w-5 text-white" aria-hidden />
+    <aside
+      className={`fixed inset-y-0 left-0 z-30 hidden flex-col border-r border-border bg-surface transition-[width] duration-200 ease-out md:flex ${
+        sidebarCollapsed ? 'w-[4.5rem]' : 'w-60'
+      }`}
+    >
+      <div
+        className={`flex h-[4.5rem] shrink-0 items-center border-b border-border ${
+          sidebarCollapsed ? 'justify-center px-3' : 'justify-between px-5'
+        }`}
+      >
+        <div className="flex items-center gap-2.5 overflow-hidden">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-600">
+            <Clapperboard className="h-5 w-5 text-white" aria-hidden />
+          </div>
+          <span
+            className={`whitespace-nowrap text-lg font-bold text-text-primary transition-opacity duration-200 ${
+              sidebarCollapsed ? 'w-0 opacity-0' : 'opacity-100'
+            }`}
+          >
+            MovieHub
+          </span>
         </div>
-        <span className="text-lg font-bold text-text-primary">MovieHub</span>
+
+        {!sidebarCollapsed && (
+          <button
+            type="button"
+            onClick={toggleSidebar}
+            className="rounded-lg p-1.5 text-text-muted transition-colors hover:bg-surface-muted hover:text-text-primary"
+            aria-label="Collapse sidebar"
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden />
+          </button>
+        )}
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 p-4" aria-label="Main navigation">
-        {navItems.map(({ to, label, icon: Icon, ...rest }) => (
+      {sidebarCollapsed && (
+        <div className="flex justify-center border-b border-border py-2">
+          <button
+            type="button"
+            onClick={toggleSidebar}
+            className="rounded-lg p-1.5 text-text-muted transition-colors hover:bg-surface-muted hover:text-text-primary"
+            aria-label="Expand sidebar"
+          >
+            <ChevronRight className="h-4 w-4" aria-hidden />
+          </button>
+        </div>
+      )}
+
+      <nav
+        className="flex flex-1 flex-col gap-1 overflow-y-auto p-3"
+        aria-label="Main navigation"
+      >
+        {navItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
-            end={'end' in rest ? rest.end : false}
+            end={end}
+            title={sidebarCollapsed ? label : undefined}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                isActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-text-secondary hover:bg-surface-muted hover:text-text-primary'
-              }`
+              `flex items-center rounded-lg py-2.5 text-sm font-medium transition-all duration-200 ${
+                sidebarCollapsed ? 'justify-center px-0' : 'gap-3 px-3'
+              } ${isActive ? activeNavClass : inactiveNavClass}`
             }
           >
             <Icon className="h-5 w-5 shrink-0" aria-hidden />
-            {label}
+            <span
+              className={`whitespace-nowrap transition-opacity duration-200 ${
+                sidebarCollapsed ? 'sr-only' : 'opacity-100'
+              }`}
+            >
+              {label}
+            </span>
           </NavLink>
         ))}
       </nav>
 
-      <div className="border-t border-border p-4">
-        <div className="flex items-center gap-2 rounded-lg bg-primary-50 px-3 py-2.5 text-xs text-primary-700">
+      <div className="shrink-0 border-t border-border p-3">
+        <div
+          className={`flex items-center rounded-lg bg-primary-50 text-xs text-primary-700 transition-all duration-200 ${
+            sidebarCollapsed
+              ? 'justify-center px-2 py-2.5'
+              : 'gap-2 px-3 py-2.5'
+          }`}
+          title={sidebarCollapsed ? 'Powered by TMDB API' : undefined}
+        >
           <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
-          <span>Powered by TMDB API</span>
+          <span
+            className={`whitespace-nowrap transition-opacity duration-200 ${
+              sidebarCollapsed ? 'sr-only' : 'opacity-100'
+            }`}
+          >
+            Powered by TMDB API
+          </span>
         </div>
       </div>
     </aside>
-  );
-}
-
-export function MobileNav() {
-  return (
-    <nav
-      className="flex gap-1 overflow-x-auto border-b border-border bg-surface px-3 py-2 lg:hidden"
-      aria-label="Mobile navigation"
-    >
-      {navItems.map(({ to, label, icon: Icon, ...rest }) => (
-        <NavLink
-          key={to}
-          to={to}
-          end={'end' in rest ? rest.end : false}
-          className={({ isActive }) =>
-            `flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
-              isActive
-                ? 'bg-primary-50 text-primary-700'
-                : 'text-text-secondary hover:bg-surface-muted'
-            }`
-          }
-        >
-          <Icon className="h-4 w-4" aria-hidden />
-          {label}
-        </NavLink>
-      ))}
-    </nav>
   );
 }

@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/ui/Spinner';
+import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { MovieSection } from '@/components/movies/MovieSection';
@@ -13,7 +13,7 @@ export function HomePage() {
   const error = nowPlaying.error ?? popular.error;
 
   if (isLoading) {
-    return <Spinner className="py-24" label="Loading movies..." />;
+    return <PageLoader label="Loading movies..." />;
   }
 
   if (isError) {

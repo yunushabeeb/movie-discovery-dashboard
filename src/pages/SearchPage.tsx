@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
-import { Spinner } from '@/components/ui/Spinner';
+import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { MovieGrid } from '@/components/movies/MovieGrid';
 import { FilterBar } from '@/components/search/FilterBar';
+import { CollapsiblePanel } from '@/components/ui/CollapsiblePanel';
 import { useDiscoverMovies, useGenres, useSearchMovies } from '@/hooks/useMovies';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
+import { useLayout } from '@/hooks/useLayout';
 import { pluralize } from '@/utils/format';
 
 export function SearchPage() {
+  const { filtersOpen } = useLayout();
   const { filters, setFilters, clearFilters, hasActiveFilters } =
     useSearchFilters();
   const genresQuery = useGenres();
@@ -76,9 +79,9 @@ export function SearchPage() {
 
   return (
     <div className="space-y-6">
-      <header className="space-y-1">
+      <header>
         {isSearching ? (
-          <>
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <h1 className="text-2xl font-bold text-text-primary">
               Search Results for &ldquo;{trimmedQuery}&rdquo;
             </h1>
@@ -87,29 +90,31 @@ export function SearchPage() {
                 {pluralize(sortedMovies.length, 'result')} found
               </p>
             )}
-          </>
+          </div>
         ) : (
-          <>
+          <div className="space-y-1">
             <h1 className="text-2xl font-bold text-text-primary">
               Search &amp; Discover
             </h1>
             <p className="text-sm text-text-secondary">
               Search for movies or browse with filters below.
             </p>
-          </>
+          </div>
         )}
       </header>
 
-      <FilterBar
-        filters={filters}
-        genres={genresQuery.data?.genres ?? []}
-        onChange={setFilters}
-        onClear={clearFilters}
-        hasActiveFilters={hasActiveFilters}
-      />
+      <CollapsiblePanel open={filtersOpen}>
+        <FilterBar
+          filters={filters}
+          genres={genresQuery.data?.genres ?? []}
+          onChange={setFilters}
+          onClear={clearFilters}
+          hasActiveFilters={hasActiveFilters}
+        />
+      </CollapsiblePanel>
 
       {showMinQueryHint && (
-        <p className="text-sm text-text-secondary">
+        <p className="animate-fade-in text-sm text-text-secondary">
           Type at least 2 characters to search.
         </p>
       )}
@@ -122,7 +127,7 @@ export function SearchPage() {
       )}
 
       {!showInitialState && !showMinQueryHint && activeQuery.isLoading && (
-        <Spinner className="py-20" label="Searching movies..." />
+        <PageLoader label="Searching movies..." />
       )}
 
       {!showInitialState && activeQuery.isError && (
@@ -151,7 +156,11 @@ export function SearchPage() {
         !showMinQueryHint &&
         !activeQuery.isLoading &&
         !activeQuery.isError &&
-        sortedMovies.length > 0 && <MovieGrid movies={sortedMovies} />}
+        sortedMovies.length > 0 && (
+          <div className="animate-fade-in">
+            <MovieGrid movies={sortedMovies} />
+          </div>
+        )}
     </div>
   );
 }

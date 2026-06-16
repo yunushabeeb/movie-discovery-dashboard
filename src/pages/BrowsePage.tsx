@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/ui/Spinner';
+import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { MovieGrid } from '@/components/movies/MovieGrid';
@@ -16,7 +16,7 @@ export function BrowsePage({ listType, description }: BrowsePageProps) {
   const title = MOVIE_LIST_LABELS[listType];
 
   if (isLoading) {
-    return <Spinner className="py-24" label={`Loading ${title.toLowerCase()}...`} />;
+    return <PageLoader label={`Loading ${title.toLowerCase()}...`} />;
   }
 
   if (isError) {
