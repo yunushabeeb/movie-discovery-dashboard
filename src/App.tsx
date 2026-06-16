@@ -1,10 +1,14 @@
+import { AppRoutes } from '@/routes/AppRoutes';
+import { QueryProvider } from '@/providers/QueryProvider';
+import { FavoritesProvider } from '@/providers/FavoritesProvider';
+
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-blue-500!">
-        Hello World
-      </h1>
-    </>
+    <QueryProvider>
+      <FavoritesProvider>
+        <AppRoutes />
+      </FavoritesProvider>
+    </QueryProvider>
   );
 }
 
