@@ -1,3 +1,4 @@
+/** Application route definitions — all pages share the AppLayout shell. */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { LayoutProvider } from '@/providers/LayoutProvider';
@@ -9,6 +10,7 @@ import { MovieDetailsPage } from '@/pages/MovieDetailsPage';
 export function AppRoutes() {
   return (
     <BrowserRouter>
+      {/* LayoutProvider sits inside BrowserRouter so it can read location. */}
       <LayoutProvider>
         <Routes>
           <Route element={<AppLayout />}>

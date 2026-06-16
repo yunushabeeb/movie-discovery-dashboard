@@ -9,6 +9,7 @@ export function useLayout() {
   return context;
 }
 
+/** Tailwind padding classes that offset main content for the fixed sidebar width. */
 export function useSidebarOffset() {
   const { sidebarCollapsed } = useLayout();
   return sidebarCollapsed ? 'md:pl-[4.5rem]' : 'md:pl-60';

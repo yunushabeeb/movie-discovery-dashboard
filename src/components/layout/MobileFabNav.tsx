@@ -1,3 +1,4 @@
+/** Mobile-only expandable FAB navigation (visible below md breakpoint). */
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutGrid, X } from 'lucide-react';

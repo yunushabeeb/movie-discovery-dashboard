@@ -1,3 +1,4 @@
+/** Reusable browse view for popular, top-rated, and upcoming routes. */
 import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { EmptyState } from '@/components/ui/EmptyState';

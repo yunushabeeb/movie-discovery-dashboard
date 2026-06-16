@@ -19,8 +19,12 @@ function SearchField() {
   const [isFocused, setIsFocused] = useState(false);
   const [draft, setDraft] = useState(urlQuery);
   const debouncedDraft = useDebounce(draft);
+
+  // While focused, show local draft so URL updates don't steal input focus.
+  // When blurred, show the URL value (handles back/forward navigation).
   const displayValue = isFocused ? draft : urlQuery;
 
+  // Sync debounced input to URL without full navigation — keeps the input mounted.
   useEffect(() => {
     if (location.pathname !== '/search') return;
 
@@ -108,6 +112,7 @@ function SearchField() {
       {displayValue && (
         <button
           type="button"
+          // Prevent blur before click so the clear action doesn't fight focus state.
           onMouseDown={(event) => event.preventDefault()}
           onClick={handleClear}
           className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-text-muted transition-colors hover:bg-surface hover:text-text-primary"

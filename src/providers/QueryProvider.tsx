@@ -1,3 +1,4 @@
+/** Global TanStack Query client — shared cache and default fetch behaviour. */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { STALE_TIME } from '@/utils/constants';

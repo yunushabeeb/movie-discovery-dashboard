@@ -1,3 +1,4 @@
+/** App shell — fixed sidebar on md+, FAB nav below md, sticky header chrome. */
 import { Outlet, useLocation } from 'react-router-dom';
 import { Clapperboard } from 'lucide-react';
 import { Header } from './Header';
@@ -5,6 +6,7 @@ import { MobileFabNav } from './MobileFabNav';
 import { Sidebar } from './Sidebar';
 import { useSidebarOffset } from '@/hooks/useLayout';
 
+/** Detail pages hide search/filter chrome to match the focused movie view. */
 function isMovieDetailPage(pathname: string): boolean {
   return /^\/movie\/[^/]+$/.test(pathname);
 }
@@ -17,6 +19,7 @@ export function AppLayout() {
   return (
     <div className="min-h-dvh bg-surface-muted">
       <Sidebar />
+      {/* Remount on route change to auto-close the FAB menu without an effect. */}
       <MobileFabNav key={location.pathname} />
 
       <div
@@ -33,6 +36,7 @@ export function AppLayout() {
           {!isDetailPage && <Header className="md:border-b" />}
         </div>
 
+        {/* Extra bottom padding on mobile so content isn't hidden behind the FAB. */}
         <main className="flex-1 px-4 py-5 pb-24 sm:px-6 sm:py-6 md:pb-6">
           <div className="animate-fade-in">
             <Outlet />

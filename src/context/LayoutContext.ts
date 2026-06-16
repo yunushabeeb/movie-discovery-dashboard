@@ -1,3 +1,4 @@
+/** Layout UI state shared between sidebar, header, and search page. */
 import { createContext } from 'react';
 
 export interface LayoutContextValue {

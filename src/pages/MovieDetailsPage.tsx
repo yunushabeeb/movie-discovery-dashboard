@@ -1,3 +1,4 @@
+/** Movie detail view — fetches details, credits, and similar movies in parallel. */
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Heart, Star } from 'lucide-react';
 import { PageLoader } from '@/components/ui/PageLoader';
@@ -29,6 +30,7 @@ export function MovieDetailsPage() {
   const movieId = Number(id);
 
   const detailsQuery = useMovieDetails(movieId);
+  // Credits fetched separately so the details query stays focused on movie metadata.
   const creditsQuery = useMovieCredits(movieId);
   const similarQuery = useSimilarMovies(movieId);
   const { isFavorite, toggleFavorite } = useFavorites();

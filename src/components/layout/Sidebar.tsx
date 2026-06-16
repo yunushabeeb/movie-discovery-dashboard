@@ -1,3 +1,4 @@
+/** Desktop sidebar — collapsible; hidden below md where MobileFabNav takes over. */
 import { NavLink } from 'react-router-dom';
 import {
   ChevronLeft,

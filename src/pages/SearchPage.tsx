@@ -1,3 +1,7 @@
+/**
+ * Search & discover page — uses TMDB search when a query is present,
+ * otherwise falls back to discover/movie for filter-only browsing.
+ */
 import { useMemo } from 'react';
 import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
@@ -30,6 +34,8 @@ export function SearchPage() {
 
   const activeQuery = isSearching ? searchQuery : discoverQuery;
 
+  // TMDB search results only include genre_ids, so genre/year/rating filters
+  // are applied client-side when a text search is active.
   const filteredMovies = useMemo(() => {
     const movies = activeQuery.data?.results ?? [];
 
@@ -49,6 +55,7 @@ export function SearchPage() {
     });
   }, [activeQuery.data?.results, filters, isSearching]);
 
+  // Search endpoint doesn't accept sort params; sort client-side when searching.
   const sortedMovies = useMemo(() => {
     if (!isSearching || filters.sortBy === 'popularity.desc') {
       return filteredMovies;

@@ -1,3 +1,4 @@
+/** React Query hooks — bridge UI components to the movies API layer. */
 import { useQuery } from '@tanstack/react-query';
 import {
   discoverMovies,
@@ -22,7 +23,7 @@ export function useMovieDetails(id: number) {
   return useQuery({
     queryKey: movieKeys.detail(id),
     queryFn: () => getMovieDetails(id),
-    enabled: Number.isFinite(id) && id > 0,
+    enabled: Number.isFinite(id) && id > 0, // Guard against invalid route params.
   });
 }
 
@@ -46,7 +47,7 @@ export function useGenres() {
   return useQuery({
     queryKey: movieKeys.genres(),
     queryFn: getGenres,
-    staleTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 60, // Genres rarely change — cache for 1 hour.
   });
 }
 
@@ -56,6 +57,7 @@ export function useSearchMovies(query: string, page = 1) {
   return useQuery({
     queryKey: movieKeys.search(`${trimmed}-${page}`),
     queryFn: () => searchMovies(trimmed, page),
+    // TMDB search is noisy with single-character queries; 2+ chars is a sensible minimum.
     enabled: trimmed.length >= 2,
   });
 }

@@ -1,3 +1,4 @@
+/** Favorites context shape — consumed via useFavorites hook. */
 import { createContext } from 'react';
 
 export interface FavoritesContextValue {

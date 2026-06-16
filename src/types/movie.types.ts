@@ -1,3 +1,7 @@
+/**
+ * TMDB API response types — mirrors the v3 movie endpoints used in movies.api.ts.
+ * Kept separate from API layer so types can be imported by components without Axios.
+ */
 export interface Movie {
   id: number;
   title: string;
@@ -75,7 +79,11 @@ export interface GenreListResponse {
   genres: Genre[];
 }
 
-export type MovieListType = 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
+export type MovieListType =
+  | 'now_playing'
+  | 'popular'
+  | 'top_rated'
+  | 'upcoming';
 
 export type SortOption =
   | 'popularity.desc'
