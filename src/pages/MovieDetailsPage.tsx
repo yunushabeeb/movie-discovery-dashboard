@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Heart, Star } from 'lucide-react';
+import { PageLoader } from '@/components/ui/PageLoader';
 import { Spinner } from '@/components/ui/Spinner';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { PosterImage } from '@/components/ui/PosterImage';
@@ -42,7 +43,7 @@ export function MovieDetailsPage() {
   }
 
   if (detailsQuery.isLoading) {
-    return <Spinner className="py-24" label="Loading movie details..." />;
+    return <PageLoader label="Loading movie details..." />;
   }
 
   if (detailsQuery.isError || !detailsQuery.data) {
@@ -166,7 +167,9 @@ export function MovieDetailsPage() {
       </section>
 
       {similarQuery.isLoading ? (
-        <Spinner className="py-12" label="Loading similar movies..." />
+        <div className="flex min-h-48 items-center justify-center animate-fade-in">
+          <Spinner label="Loading similar movies..." />
+        </div>
       ) : similarMovies.length > 0 ? (
         <MovieSection
           title="Similar Movies"

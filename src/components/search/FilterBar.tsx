@@ -21,7 +21,7 @@ export function FilterBar({
   return (
     <div
       id="search-filters"
-      className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:flex-wrap sm:items-end"
+      className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center"
     >
       <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Select
@@ -83,7 +83,7 @@ export function FilterBar({
         <button
           type="button"
           onClick={onClear}
-          className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-700"
+          className="inline-flex h-10 shrink-0 items-center self-center text-sm font-medium text-primary-600 transition-colors hover:text-primary-700 sm:self-auto"
         >
           Clear Filters
         </button>

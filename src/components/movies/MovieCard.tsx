@@ -15,13 +15,13 @@ export function MovieCard({ movie, variant = 'grid' }: MovieCardProps) {
   return (
     <Link
       to={`/movie/${movie.id}`}
-      className={`group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+      className={`group block transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
         isRow ? 'w-40 shrink-0 sm:w-44' : ''
       }`}
     >
       <article className="space-y-2.5">
         <div
-          className={`relative overflow-hidden rounded-xl bg-slate-200 shadow-sm transition-shadow group-hover:shadow-md ${
+          className={`relative overflow-hidden rounded-xl bg-slate-200 shadow-sm transition-shadow duration-200 group-hover:shadow-md ${
             isRow ? 'aspect-[2/3]' : 'aspect-[2/3] w-full'
           }`}
         >
@@ -29,7 +29,7 @@ export function MovieCard({ movie, variant = 'grid' }: MovieCardProps) {
             path={movie.poster_path}
             alt={`${movie.title} poster`}
             size={isRow ? 'medium' : 'medium'}
-            className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full transition-transform duration-200 group-hover:scale-105"
           />
           <RatingBadge
             rating={movie.vote_average}
