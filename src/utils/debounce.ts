@@ -1,3 +1,4 @@
+/** Debounce hook and utility — used by search input to limit TMDB API calls. */
 import { useEffect, useState } from 'react';
 import { DEBOUNCE_MS } from './constants';
 

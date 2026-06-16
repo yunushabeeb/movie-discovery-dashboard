@@ -1,3 +1,4 @@
+/** App-wide constants — TMDB image sizes, filter options, and timing values. */
 export const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
 
 export const POSTER_SIZES = {

@@ -1,3 +1,4 @@
+/** Persists sidebar collapse preference across sessions. */
 import {
   useCallback,
   useEffect,
@@ -21,6 +22,7 @@ function loadSidebarCollapsed(): boolean {
 export function LayoutProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(loadSidebarCollapsed);
+  // Open filters by default when landing directly on the search route.
   const [filtersOpen, setFiltersOpen] = useState(
     () => location.pathname === '/search',
   );

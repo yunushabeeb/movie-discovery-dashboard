@@ -1,3 +1,4 @@
+/** Shared nav items and active styles — used by sidebar and mobile FAB nav. */
 import {
   Calendar,
   Home,

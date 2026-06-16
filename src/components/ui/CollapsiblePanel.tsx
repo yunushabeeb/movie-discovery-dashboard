@@ -6,6 +6,10 @@ interface CollapsiblePanelProps {
   className?: string;
 }
 
+/**
+ * Animated show/hide wrapper using CSS grid row transition.
+ * grid-rows-[0fr] → grid-rows-[1fr] collapses height without measuring content.
+ */
 export function CollapsiblePanel({
   open,
   children,

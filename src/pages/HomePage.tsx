@@ -1,3 +1,4 @@
+/** Home dashboard — composes two TMDB list endpoints into discovery sections. */
 import { PageLoader } from '@/components/ui/PageLoader';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { EmptyState } from '@/components/ui/EmptyState';

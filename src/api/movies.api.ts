@@ -1,3 +1,7 @@
+/**
+ * TMDB endpoint functions — keeps components/hooks free of URL and param details.
+ * Each function maps 1:1 to a TMDB v3 route and returns typed responses.
+ */
 import { tmdbClient } from './client';
 import type {
   DiscoverFilters,
@@ -58,6 +62,7 @@ export async function searchMovies(
   return data;
 }
 
+/** Maps UI filter state to TMDB discover/movie query params. */
 export async function discoverMovies(
   filters: DiscoverFilters,
 ): Promise<PaginatedResponse<Movie>> {

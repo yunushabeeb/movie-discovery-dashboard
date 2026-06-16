@@ -1,3 +1,7 @@
+/**
+ * URL-driven filter state — search params are the source of truth so filters
+ * are shareable via link and survive page refreshes.
+ */
 import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { SortOption } from '@/types/movie.types';
@@ -56,6 +60,7 @@ export function useSearchFilters() {
     [setSearchParams],
   );
 
+  // Preserve the search query when clearing genre/year/rating filters.
   const clearFilters = useCallback(() => {
     setSearchParams((prev) => {
       const query = prev.get('q');

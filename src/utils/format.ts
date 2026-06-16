@@ -1,5 +1,7 @@
+/** Display helpers for TMDB data (images, dates, credits, etc.). */
 import { POSTER_SIZES, TMDB_IMAGE_BASE } from './constants';
 
+/** Builds a full TMDB poster URL; returns null when no poster_path exists. */
 export function getPosterUrl(
   path: string | null,
   size: keyof typeof POSTER_SIZES = 'medium',

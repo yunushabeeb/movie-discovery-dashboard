@@ -1,3 +1,4 @@
+/** Access favorites context — must be used inside FavoritesProvider. */
 import { useContext } from 'react';
 import { FavoritesContext } from '@/context/FavoritesContext';
 

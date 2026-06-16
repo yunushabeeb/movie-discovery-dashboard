@@ -1,3 +1,4 @@
+/** Client-side favorites — persisted to localStorage as an array of TMDB movie IDs. */
 import {
   useCallback,
   useEffect,
@@ -8,6 +9,7 @@ import {
 import { FavoritesContext } from '@/context/FavoritesContext';
 import { FAVORITES_STORAGE_KEY } from '@/utils/constants';
 
+/** Validates stored data in case localStorage was manually edited or corrupted. */
 function loadFavorites(): number[] {
   try {
     const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);

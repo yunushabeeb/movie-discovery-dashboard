@@ -1,3 +1,4 @@
+/** Full-page centered loader — used while route-level data is fetching. */
 import { Spinner } from './Spinner';
 
 interface PageLoaderProps {

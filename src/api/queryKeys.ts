@@ -1,3 +1,7 @@
+/**
+ * TanStack Query key factory — hierarchical keys enable targeted cache
+ * invalidation (e.g. invalidate all lists vs. a single movie detail).
+ */
 export const movieKeys = {
   all: ['movies'] as const,
   lists: () => [...movieKeys.all, 'list'] as const,
